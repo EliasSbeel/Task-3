@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>ToDoList</title>
+  </head>
+  <body class="font-[Poppins] bg-gray-100 min-h-screen sm:p-0 md:p-0 p-4">
+     <div class="flex flex-col md:flex-row h-full">
+      <!-- Sidebar -->
+      <div
+        class="w-full md:w-[100px] flex md:flex-col flex-row md:h-screen py-4 px-4 md:px-5 gap-4 md:gap-12 border-b md:border-b-0 md:border-r-2 bg-white md:bg-white"
+      >
+        <div
+          class="bg-amber-500 text-white p-2 h-[50px] w-[50px] rounded-full text-center font-bold text-2xl flex justify-center items-center mx-auto md:mx-0"
+        >
+          E
+        </div>
+        <button
+          onclick="openModal()"
+          class="bg-teal-600 text-white p-2 rounded-2xl font-bold w-full md:w-auto"
+        >
+          Add
+        </button>
+        <button
+          id="homeBtn"
+          class="p-3 bg-[#ebebeb] rounded flex justify-center items-center w-full md:w-auto"
+        >
+          <i class="fa-solid fa-house"></i>
+        </button>
+        <button
+          id="favoritesBtn"
+          class="p-3 bg-[#ebebeb] rounded flex justify-center items-center w-full md:w-auto"
+        >
+          <i class="fa-solid fa-heart"></i>
+        </button>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-1 overflow-auto">
+        <!-- Header -->
+        <div class="bg-white flex justify-between items-center px-4 md:px-40 py-4 shadow">
+          <div class="font-bold text-2xl">ToDo</div>
+          <div class="bg-[#ebebeb] p-2 rounded-2xl font-bold">
+            <button>Dark</button>
+          </div>
+        </div>
+
+        <!-- Search -->
+        <div class="w-full md:w-[80%] mx-auto py-6">
+          <div class="flex justify-center items-center pb-4">
+            <input
+              id="searchInput"
+              placeholder="Search for..."
+              class="px-4 py-2 md:px-12 md:py-2 rounded-2xl bg-white border-none outline-none shadow w-full md:w-auto"
+            />
+          </div>
+
+          <!-- All Tasks -->
+          <div class="flex justify-between items-center pb-4">
+            <h2 class="font-bold text-2xl md:text-3xl">All Tasks</h2>
+            <button
+              class="px-4 py-2 bg-red-500 text-white font-semibold rounded-2xl transition-transform duration-300 hover:scale-110"
+              onclick="deleteAll()"
+            >
+              Clear All
+            </button>
+          </div>
+          <div
+            id="tasksDiv"
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+          >
+            <!-- Task items injected here -->
+          </div>
+
+          <!-- Favorites Page -->
+          <div id="favoritesPage" class="hidden mt-6">
+            <h2 class="font-bold text-2xl md:text-3xl mb-4">Favorite Tasks</h2>
+            <div
+              id="favoritesDiv"
+              class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      id="modal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50"
+    >
+      <div class="bg-white p-6 rounded-2xl w-11/12 md:w-96 shadow-lg">
+        <h2 class="text-xl font-bold mb-4">Add Task</h2>
+
+        <input
+          id="taskTitle"
+          type="text"
+          placeholder="Task Title"
+          class="w-full mb-3 p-2 border rounded outline-none"
+        />
+        <input
+          id="taskDes"
+          type="text"
+          placeholder="Task Description"
+          class="w-full mb-3 p-2 border rounded outline-none"
+        />
+
+        <div class="flex justify-end gap-3">
+          <button
+            onclick="closeModal()"
+            class="px-4 py-2 bg-gray-300 rounded"
+          >
+            Cancel
+          </button>
+          <button
+            id="add"
+            class="px-4 py-2 bg-teal-600 text-white rounded"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
