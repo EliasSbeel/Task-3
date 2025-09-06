@@ -106,20 +106,22 @@ function addTaskToArray(taskTitle, taskDes) {
 function addTasksToPage(arrayOfTasks) {
   tasksDiv.innerHTML = "";
   arrayOfTasks.forEach((task) => {
-    let div = document.createElement('div');
-    div.className = 'task';
-    div.setAttribute('data-id', task.id);
+    let div = document.createElement("div");
+    div.className = "task";
+    div.setAttribute("data-id", task.id);
+
     const dateObj = new Date(task.date);
     const formattedDate = `${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`;
-    div.innerHTML += `
-      <div class="bg-[#fff] border-t-4 border-blue-500">
+
+    div.innerHTML = `
+      <div class="bg-white dark:bg-gray-800 border-t-4 border-blue-500 rounded-xl shadow">
         <h3
-          class="px-4 py-2 bg-indigo-100 text-1xl font-semibold m-4 w-[50%] rounded-2xl text-blue-500"
+          class="px-4 py-2 bg-indigo-100 dark:bg-indigo-900 text-1xl font-semibold m-4 w-[50%] rounded-2xl text-blue-500"
         >
           ${task.title}
         </h3>
-        <p class="px-5 pb-2 text-[#888]">${task.des}...</p>
-        <p class="px-5 pb-2 font-semibold">Date: ${formattedDate} </p>
+        <p class="px-5 pb-2 text-gray-600 dark:text-gray-300">${task.des}...</p>
+        <p class="px-5 pb-2 font-semibold text-gray-700 dark:text-gray-200">Date: ${formattedDate} </p>
         <div class="px-5 flex justify-between items-center py-3">
           <span class="favorite cursor-pointer">
             ${task.favorite
@@ -128,23 +130,20 @@ function addTasksToPage(arrayOfTasks) {
       }
           </span>
           <div class="flex gap-5">
-            <span class="transition-transform duration-300 hover:scale-125"
-              ><i
-                class="fa-solid fa-pen-to-square edit"
-                style="color: blue"
-              ></i
-            ></span>
-            <span class="transition-transform duration-300 hover:scale-125"
-              ><i class="fa-solid fa-trash del" style="color: red"></i
-            ></span>
+            <span class="transition-transform duration-300 hover:scale-125">
+              <i class="fa-solid fa-pen-to-square edit" style="color: blue"></i>
+            </span>
+            <span class="transition-transform duration-300 hover:scale-125">
+              <i class="fa-solid fa-trash del" style="color: red"></i>
+            </span>
           </div>
         </div>
       </div>
-    `
+    `;
     tasksDiv.appendChild(div);
-
   });
 }
+
 
 function addTasksToStorage(arrayOfTasks) {
   localStorage.setItem('tasks', JSON.stringify(arrayOfTasks))
@@ -201,6 +200,64 @@ function closeModal() {
   document.getElementById('modal').classList.add('hidden');
 }
 
+
+
+// Show All Tasks Page
+document.getElementById('homeBtn').addEventListener('click', () => {
+  document.getElementById('allTasksPage').classList.remove('hidden');
+  document.getElementById('favoritesPage').classList.add('hidden');
+  addTasksToPage(arrayOfTasks); // refresh
+});
+
+// Show Favorites Page
+document.getElementById('favoritesBtn').addEventListener('click', () => {
+  document.getElementById('allTasksPage').classList.add('hidden');
+  document.getElementById('favoritesPage').classList.remove('hidden');
+  addFavoritesToPage(); // render favorites
+});
+
+// Render Favorites Only
+function addFavoritesToPage() {
+  const favoritesDiv = document.getElementById("favoritesDiv");
+  favoritesDiv.innerHTML = "";
+
+  const favorites = arrayOfTasks.filter((task) => task.favorite);
+
+  favorites.forEach((task) => {
+    let div = document.createElement("div");
+    div.className = "task";
+    div.setAttribute("data-id", task.id);
+
+    const dateObj = new Date(task.date);
+    const formattedDate = `${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`;
+
+    div.innerHTML = `
+      <div class="bg-white dark:bg-gray-800 border-t-4 border-blue-500 rounded-xl shadow">
+        <h3
+          class="px-4 py-2 bg-indigo-100 dark:bg-indigo-900 text-1xl font-semibold m-4 w-[50%] rounded-2xl text-blue-500"
+        >
+          ${task.title}
+        </h3>
+        <p class="px-5 pb-2 text-gray-600 dark:text-gray-300">${task.des}...</p>
+        <p class="px-5 pb-2 font-semibold text-gray-700 dark:text-gray-200">Date: ${formattedDate} </p>
+        <div class="px-5 flex justify-between items-center py-3">
+          <span class="favorite cursor-pointer">
+            <i class="fa-solid fa-heart" style="color:red"></i>
+          </span>
+          <div class="flex gap-5">
+            <span class="transition-transform duration-300 hover:scale-125">
+              <i class="fa-solid fa-pen-to-square edit" style="color: blue"></i>
+            </span>
+            <span class="transition-transform duration-300 hover:scale-125">
+              <i class="fa-solid fa-trash del" style="color: red"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    `;
+    favoritesDiv.appendChild(div);
+  });
+}
 
 
 
