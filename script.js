@@ -69,22 +69,22 @@ tasksDiv.addEventListener('click', (e) => {
     const taskId = taskEl.dataset.id;
 
     editTaks(taskId);
-    console.log(taskId)
   }
+
   if (e.target.closest('.favorite')) {
-  const taskEl = e.target.closest('.task');
-  const taskId = taskEl.dataset.id;
+    const taskEl = e.target.closest('.task');
+    const taskId = taskEl.dataset.id;
 
-  arrayOfTasks = arrayOfTasks.map(task => {
-    if (task.id == taskId) {
-      return { ...task, favorite: !task.favorite };
-    }
-    return task;
-  });
+    arrayOfTasks = arrayOfTasks.map(task => {
+      if (task.id == taskId) {
+        return { ...task, favorite: !task.favorite };
+      }
+      return task;
+    });
 
-  addTasksToStorage(arrayOfTasks);
-  addTasksToPage(arrayOfTasks); 
-}
+    addTasksToStorage(arrayOfTasks);
+    addTasksToPage(arrayOfTasks);
+  }
 
 })
 
@@ -114,7 +114,7 @@ function addTasksToPage(arrayOfTasks) {
     div.innerHTML += `
       <div class="bg-[#fff] border-t-4 border-blue-500">
         <h3
-          class="px-4 py-2 bg-indigo-100 text-2xl font-semibold m-4 w-[50%] rounded-2xl text-blue-500"
+          class="px-4 py-2 bg-indigo-100 text-1xl font-semibold m-4 w-[50%] rounded-2xl text-blue-500"
         >
           ${task.title}
         </h3>
@@ -123,9 +123,9 @@ function addTasksToPage(arrayOfTasks) {
         <div class="px-5 flex justify-between items-center py-3">
           <span class="favorite cursor-pointer">
             ${task.favorite
-              ? '<i class="fa-solid fa-heart transition-transform duration-300 hover:scale-125" style="color:red"></i>'
-            : '<i class="fa-regular fa-heart transition-transform duration-300 hover:scale-125"></i>'
-            }
+        ? '<i class="fa-solid fa-heart transition-transform duration-300 hover:scale-125" style="color:red"></i>'
+        : '<i class="fa-regular fa-heart transition-transform duration-300 hover:scale-125"></i>'
+      }
           </span>
           <div class="flex gap-5">
             <span class="transition-transform duration-300 hover:scale-125"
